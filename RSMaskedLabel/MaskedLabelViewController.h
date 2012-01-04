@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RSMaskedLabel.h"
 
-@interface MaskedLabelViewController : UIViewController
+@interface MaskedLabelViewController : UIViewController<UITextFieldDelegate>
+@property (retain, nonatomic) IBOutlet RSMaskedLabel *maskedLabel;
+@property (retain, nonatomic) IBOutlet UITextField *labelTextField;
 
 @end

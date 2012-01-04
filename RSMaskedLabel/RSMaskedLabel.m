@@ -21,10 +21,11 @@
 @property (nonatomic, retain) UILabel *knockoutLabel;
 @property (nonatomic, retain) CALayer *textLayer;
 - (void) RS_commonInit;
+- (void) updateLabel;
 @end
 
 @implementation RSMaskedLabel
-@synthesize knockoutLabel, textLayer;
+@synthesize knockoutLabel, textLayer, text;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -57,7 +58,6 @@
      
     // create the UILabel for the text
     knockoutLabel = [[UILabel alloc] initWithFrame:[self frame]];
-    [knockoutLabel setText:@"booyah"];
     [knockoutLabel setTextAlignment:UITextAlignmentCenter];
     [knockoutLabel setFont:[UIFont boldSystemFontOfSize:72.0]];
     [knockoutLabel setNumberOfLines:1];
@@ -78,15 +78,6 @@
                                   [NSNumber numberWithFloat:0.55],
                                   [NSNumber numberWithFloat:1], nil];
     
-    // render our label to a UIImage
-    // if you remove the call to invertAlpha it will mask the text
-    invertedAlphaImage = [[[UIImage imageWithView:knockoutLabel] invertAlpha] CGImage];
-
-    // create a new CALayer to use as the mask
-    textLayer = [CALayer layer];
-    // stick the image in the layer
-    [textLayer setContents:(id)invertedAlphaImage];
-
     // create a nice gradient layer to use as our fill
     CAGradientLayer *gradientLayer = (CAGradientLayer *)[self layer];
     
@@ -97,8 +88,37 @@
     [gradientLayer setEndPoint:CGPointMake(0.0, 1.0)];
     [gradientLayer setCornerRadius:10];
     
-    // mask the text layer onto our gradient
-    [gradientLayer setMask:textLayer];
+    [self setText:@"booyah"];
+}
+
+- (void)setText:(NSString *)value
+{
+    if(value != text)
+    {
+        [text release];
+        text = [value retain];
+        
+        [self updateLabel];
+    }
+}
+
+- (void)updateLabel
+{
+    [knockoutLabel setText:[self text]];
+    
+    // render our label to a UIImage
+    // if you remove the call to invertAlpha it will mask the text
+    invertedAlphaImage = [[[UIImage imageWithView:knockoutLabel] invertAlpha] CGImage];
+    
+    // create a new CALayer to use as the mask
+    textLayer = [CALayer layer];
+    
+    // stick the image in the layer
+    [textLayer setContents:(id)invertedAlphaImage];
+    
+    [[self layer] setMask:textLayer];
+    
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews

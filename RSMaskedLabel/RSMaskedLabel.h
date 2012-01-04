@@ -10,4 +10,6 @@
 
 @interface RSMaskedLabel : UIView
 
+@property (nonatomic, retain) NSString *text;
+
 @end
