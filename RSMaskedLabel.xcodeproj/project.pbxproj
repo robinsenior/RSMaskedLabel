@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60B256B516C4AB1400071C5A /* wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60B256B416C4AB1400071C5A /* wallpaper@2x.png */; };
 		60F543BE14B4B07500BFD507 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F543BD14B4B07500BFD507 /* UIKit.framework */; };
 		60F543C014B4B07500BFD507 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F543BF14B4B07500BFD507 /* Foundation.framework */; };
 		60F543C214B4B07500BFD507 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F543C114B4B07500BFD507 /* CoreGraphics.framework */; };
@@ -16,11 +17,11 @@
 		60F543D114B4B07500BFD507 /* MaskedLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F543D014B4B07500BFD507 /* MaskedLabelViewController.m */; };
 		60F543D414B4B07500BFD507 /* MaskedLabelViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60F543D214B4B07500BFD507 /* MaskedLabelViewController_iPhone.xib */; };
 		60F543DF14B4B09300BFD507 /* RSMaskedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F543DE14B4B09300BFD507 /* RSMaskedLabel.m */; };
-		60F5440314B4B17800BFD507 /* wallpaper@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 60F5440214B4B17800BFD507 /* wallpaper@2x.jpg */; };
 		60F5440514B4B54700BFD507 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F5440414B4B54700BFD507 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60B256B416C4AB1400071C5A /* wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper@2x.png"; sourceTree = "<group>"; };
 		60F543B914B4B07500BFD507 /* RSMaskedLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSMaskedLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F543BD14B4B07500BFD507 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60F543BF14B4B07500BFD507 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -36,7 +37,6 @@
 		60F543D314B4B07500BFD507 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MaskedLabelViewController_iPhone.xib; sourceTree = "<group>"; };
 		60F543DD14B4B09300BFD507 /* RSMaskedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSMaskedLabel.h; sourceTree = "<group>"; };
 		60F543DE14B4B09300BFD507 /* RSMaskedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMaskedLabel.m; sourceTree = "<group>"; };
-		60F5440214B4B17800BFD507 /* wallpaper@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wallpaper@2x.jpg"; sourceTree = "<group>"; };
 		60F5440414B4B54700BFD507 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -101,7 +101,7 @@
 		60F543C414B4B07500BFD507 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				60F5440214B4B17800BFD507 /* wallpaper@2x.jpg */,
+				60B256B416C4AB1400071C5A /* wallpaper@2x.png */,
 				60F543C514B4B07500BFD507 /* RSMaskedLabel-Info.plist */,
 				60F543C614B4B07500BFD507 /* InfoPlist.strings */,
 				60F543C914B4B07500BFD507 /* main.m */,
@@ -136,7 +136,7 @@
 		60F543B014B4B07500BFD507 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Nulayer;
 			};
 			buildConfigurationList = 60F543B314B4B07500BFD507 /* Build configuration list for PBXProject "RSMaskedLabel" */;
@@ -163,7 +163,7 @@
 			files = (
 				60F543C814B4B07500BFD507 /* InfoPlist.strings in Resources */,
 				60F543D414B4B07500BFD507 /* MaskedLabelViewController_iPhone.xib in Resources */,
-				60F5440314B4B17800BFD507 /* wallpaper@2x.jpg in Resources */,
+				60B256B516C4AB1400071C5A /* wallpaper@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +208,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -221,6 +225,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -233,12 +238,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";

@@ -23,7 +23,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+    [[self maskedLabel] setFont:[UIFont boldSystemFontOfSize:64]];
+    [[self maskedLabel] setTextAlignment:NSTextAlignmentCenter];
+    
+    [[self maskedLabel] setText:[labelTextField text]];
 }
 
 - (void)viewDidUnload
