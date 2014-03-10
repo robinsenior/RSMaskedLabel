@@ -14,6 +14,9 @@
 @end
 
 @implementation RSMaskedLabel
+{
+	UIColor* maskedBackgroundColor;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,10 +32,22 @@
     return self;
 }
 
+- (UIColor*) backgroundColor
+{
+	return maskedBackgroundColor;
+}
+
+- (void) setBackgroundColor:(UIColor *)backgroundColor
+{
+	maskedBackgroundColor = backgroundColor;
+	[self setNeedsDisplay];
+}
+
 - (void)RS_commonInit
 {
+	maskedBackgroundColor = [super backgroundColor];
     [super setTextColor:[UIColor whiteColor]];
-    [self setBackgroundColor:[UIColor clearColor]];
+    [super setBackgroundColor:[UIColor clearColor]];
     [self setOpaque:NO];
 }
 
@@ -47,7 +62,7 @@
     
     // let the superclass draw the label normally
     [super drawRect:rect];
-    
+
     CGContextConcatCTM(context, CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetHeight(rect)));
     
     // create a mask from the normally rendered text
@@ -61,7 +76,12 @@
     
     CGContextSaveGState(context);
     CGContextClipToMask(context, rect, mask);
-    
+
+	if (self.layer.cornerRadius != 0.0f) {
+		CGContextAddPath(context, CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil));
+		CGContextClip(context);
+	}
+
     CFRelease(mask);  mask = NULL;
     
     [self RS_drawBackgroundInRect:rect];
@@ -75,7 +95,7 @@
     // this is where you do whatever fancy drawing you want to do!
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    [[UIColor whiteColor] set];
+	[maskedBackgroundColor set];
     CGContextFillRect(context, rect);
 }
 

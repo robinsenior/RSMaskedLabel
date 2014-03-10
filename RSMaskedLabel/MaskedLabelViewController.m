@@ -28,6 +28,9 @@
     [[self maskedLabel] setTextAlignment:NSTextAlignmentCenter];
     
     [[self maskedLabel] setText:[labelTextField text]];
+	self.maskedLabel.backgroundColor = [UIColor blueColor];
+	self.maskedLabel.layer.cornerRadius = 12.0f;
+	self.maskedLabel.layer.borderWidth = 2.0f;
 }
 
 - (void)viewDidUnload
