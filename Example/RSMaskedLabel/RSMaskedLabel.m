@@ -78,8 +78,10 @@
     CGContextClipToMask(context, rect, mask);
 
 	if (self.layer.cornerRadius != 0.0f) {
-		CGContextAddPath(context, CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil));
+        CGPathRef path = CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil);
+		CGContextAddPath(context, path);
 		CGContextClip(context);
+        CGPathRelease(path);
 	}
 
     CFRelease(mask);  mask = NULL;
