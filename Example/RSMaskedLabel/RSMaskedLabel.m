@@ -92,7 +92,7 @@
     
 }
 
-- (void) RS_drawBackgroundInRect:(CGRect)rect
+- (void)RS_drawBackgroundInRect:(CGRect)rect
 {
     // this is where you do whatever fancy drawing you want to do!
     CGContextRef context = UIGraphicsGetCurrentContext();
