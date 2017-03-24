@@ -58,15 +58,21 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    // let the superclass draw the label normally
+    // Render into a temporary bitmap context at a max of 8 bits per component for subsequent CGImageMaskCreate operations
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0);
+
     [super drawRect:rect];
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGImageRef image = CGBitmapContextCreateImage(context);
+    UIGraphicsEndImageContext();
+    
+    // Revert to normal graphics context for the rest of the rendering
+    context = UIGraphicsGetCurrentContext();
 
     CGContextConcatCTM(context, CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetHeight(rect)));
     
     // create a mask from the normally rendered text
-    CGImageRef image = CGBitmapContextCreateImage(context);
     CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(image), CGImageGetHeight(image), CGImageGetBitsPerComponent(image), CGImageGetBitsPerPixel(image), CGImageGetBytesPerRow(image), CGImageGetDataProvider(image), CGImageGetDecode(image), CGImageGetShouldInterpolate(image));
     
     CFRelease(image); image = NULL;
@@ -78,16 +84,17 @@
     CGContextClipToMask(context, rect, mask);
 
 	if (self.layer.cornerRadius != 0.0f) {
-		CGContextAddPath(context, CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil));
+        CGPathRef path = CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil);
+		CGContextAddPath(context, path);
 		CGContextClip(context);
+        CGPathRelease(path);
 	}
 
-    CFRelease(mask);  mask = NULL;
+    CFRelease(mask); mask = NULL;
     
     [self RS_drawBackgroundInRect:rect];
     
     CGContextRestoreGState(context);
-    
 }
 
 - (void) RS_drawBackgroundInRect:(CGRect)rect
