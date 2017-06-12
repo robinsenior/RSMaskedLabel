@@ -10,4 +10,6 @@
 
 @interface RSMaskedLabel : UILabel
 
+@property (nonatomic) BOOL transparencyIsEnabled;
+
 @end
