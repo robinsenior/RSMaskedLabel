@@ -8,14 +8,10 @@
 
 #import "RSMaskedLabel.h"
 
-@interface RSMaskedLabel()
-- (void) RS_commonInit;
-- (void) RS_drawBackgroundInRect:(CGRect)rect;
-@end
-
 @implementation RSMaskedLabel
 {
-    UIColor* maskedBackgroundColor;
+    UIColor *_maskedBackgroundColor;
+    BOOL _maskedTextEnabled;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -32,40 +28,52 @@
     return self;
 }
 
-- (UIColor*) backgroundColor
+- (UIColor*)backgroundColor
 {
-    return maskedBackgroundColor;
+    return _maskedBackgroundColor;
 }
 
-- (void) setBackgroundColor:(UIColor *)backgroundColor
+- (void)setBackgroundColor:(UIColor *)backgroundColor
 {
-    maskedBackgroundColor = backgroundColor;
+    _maskedBackgroundColor = backgroundColor;
     [self setNeedsDisplay];
 }
 
 - (void)RS_commonInit
 {
-    maskedBackgroundColor = [super backgroundColor];
-    [super setTextColor:[UIColor whiteColor]];
+    _maskedBackgroundColor = [super backgroundColor];
     [super setBackgroundColor:[UIColor clearColor]];
-    [self setOpaque:NO];
-    self.transparencyIsEnabled = YES;
+    self.opaque = NO;
+    self.maskedTextEnabled = YES;
 }
 
 - (void)setTextColor:(UIColor *)textColor
 {
-    // text color needs to be white for masking to work
-    if (!self.transparencyIsEnabled) {
-        
-        [super setTextColor:textColor];
+    [super setTextColor:textColor];
+
+    self.maskedTextEnabled = false;
+}
+
+-(void)setMaskedTextEnabled:(BOOL)maskedTextEnabled
+{
+    _maskedTextEnabled = maskedTextEnabled;
+
+    if (_maskedTextEnabled) {
+        // text color needs to be white for masking to work
+        [super setTextColor:[UIColor whiteColor]];
     }
+
+    [self setNeedsDisplay];
+}
+
+- (BOOL)isMaskedTextEnabled
+{
+    return _maskedTextEnabled;
 }
 
 - (void)drawRect:(CGRect)rect
 {
-    
-    if (!self.transparencyIsEnabled) {
-        
+    if (!self.isMaskedTextEnabled) {
         [super drawRect:rect];
         return;
     }
@@ -114,7 +122,7 @@
     // this is where you do whatever fancy drawing you want to do!
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    [maskedBackgroundColor set];
+    [_maskedBackgroundColor set];
     CGContextFillRect(context, rect);
 }
 

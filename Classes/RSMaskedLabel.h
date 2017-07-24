@@ -10,6 +10,6 @@
 
 @interface RSMaskedLabel : UILabel
 
-@property (nonatomic) BOOL transparencyIsEnabled;
+@property (nonatomic, getter=isMaskedTextEnabled) BOOL maskedTextEnabled;
 
 @end
