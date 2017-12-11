@@ -77,43 +77,52 @@
         [super drawRect:rect];
         return;
     }
-    
+
     // Render into a temporary bitmap context at a max of 8 bits per component for subsequent CGImageMaskCreate operations
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0);
-    
+
     [super drawRect:rect];
-    
+
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGImageRef image = CGBitmapContextCreateImage(context);
     UIGraphicsEndImageContext();
-    
+
     // Revert to normal graphics context for the rest of the rendering
     context = UIGraphicsGetCurrentContext();
-    
+
     CGContextConcatCTM(context, CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetHeight(rect)));
-    
+
     // create a mask from the normally rendered text
     CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(image), CGImageGetHeight(image), CGImageGetBitsPerComponent(image), CGImageGetBitsPerPixel(image), CGImageGetBytesPerRow(image), CGImageGetDataProvider(image), CGImageGetDecode(image), CGImageGetShouldInterpolate(image));
-    
+
     CFRelease(image); image = NULL;
-    
+
     // wipe the slate clean
     CGContextClearRect(context, rect);
-    
+
     CGContextSaveGState(context);
     CGContextClipToMask(context, rect, mask);
-    
+
     if (self.layer.cornerRadius != 0.0f) {
-        CGPathRef path = CGPathCreateWithRoundedRect(rect, self.layer.cornerRadius, self.layer.cornerRadius, nil);
+        // corderRadius can not exceed half the size of the minimum of the height or width for the CGPathCreateWithRoundedRect call
+        // this code will reset the corder radius accordingly to not crash.
+        CGFloat cornerRadius = self.layer.cornerRadius;
+        CGFloat minSide = MIN(rect.size.height, rect.size.width);
+        if (minSide / 2.0 < cornerRadius) {
+            NSLog(@"RSMaskedLabel.layer.cornerRadius supplied is to large.  Resetting to MIN(height, width)/2, may not produce what is expected but this won't crash.");
+            cornerRadius = minSide / 2.0;
+        }
+
+        CGPathRef path = CGPathCreateWithRoundedRect(rect, cornerRadius, cornerRadius, nil);
         CGContextAddPath(context, path);
         CGContextClip(context);
         CGPathRelease(path);
     }
-    
+
     CFRelease(mask); mask = NULL;
-    
+
     [self RS_drawBackgroundInRect:rect];
-    
+
     CGContextRestoreGState(context);
 }
 
@@ -121,7 +130,7 @@
 {
     // this is where you do whatever fancy drawing you want to do!
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     [_maskedBackgroundColor set];
     CGContextFillRect(context, rect);
 }
