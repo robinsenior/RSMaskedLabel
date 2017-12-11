@@ -109,8 +109,8 @@
         CGFloat cornerRadius = self.layer.cornerRadius;
         CGFloat minSide = MIN(rect.size.height, rect.size.width);
         if (minSide / 2.0 < cornerRadius) {
-          NSLog(@"RSMaskedLabel.layer.cornerRadius supplied is to large.  Resetting to MIN(height, width)/2, may not produce what is expected but this won't crash.");
-          cornerRadius = minSide / 2.0;
+            NSLog(@"RSMaskedLabel.layer.cornerRadius supplied is to large.  Resetting to MIN(height, width)/2, may not produce what is expected but this won't crash.");
+            cornerRadius = minSide / 2.0;
         }
 
         CGPathRef path = CGPathCreateWithRoundedRect(rect, cornerRadius, cornerRadius, nil);
