@@ -74,6 +74,7 @@
 - (void)drawRect:(CGRect)rect
 {
     if (!self.isMaskedTextEnabled) {
+        [self RS_drawBackgroundInRect:rect];
         [super drawRect:rect];
         return;
     }
